@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    /* Light — fallback */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 264 89% 66%; /* 보랏빛 — 갓생 시그니처 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 264 89% 66%;
+    --radius: 0.75rem;
+
+    /* Pastel tag colors */
+    --tag-school: 217 91% 78%;
+    --tag-part: 38 92% 75%;
+    --tag-hobby: 280 80% 80%;
+    --tag-friend: 340 82% 80%;
+    --tag-meal: 142 60% 75%;
+    --tag-custom: 200 60% 78%;
+    --tag-rose: 350 80% 80%;
+    --tag-red: 0 80% 78%;
+    --tag-coral: 14 88% 78%;
+    --tag-orange: 25 92% 75%;
+    --tag-amber: 45 92% 75%;
+    --tag-lime: 95 70% 70%;
+    --tag-emerald: 155 65% 72%;
+    --tag-teal: 178 60% 70%;
+    --tag-cyan: 188 75% 75%;
+    --tag-sky: 205 88% 78%;
+    --tag-indigo: 240 75% 78%;
+    --tag-violet: 265 80% 80%;
+    --tag-fuchsia: 305 80% 80%;
+    --tag-magenta: 330 80% 78%;
+  }
+
+  .dark {
+    color-scheme: dark;
+    /* Dark — DEFAULT (Linear/Notion 스타일) */
+    --background: 240 10% 6%;
+    --foreground: 0 0% 98%;
+    --card: 240 8% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 7% 13%; /* card(9%)보다 살짝 밝게 — 팝오버가 시각적으로 떠보이도록 */
+    --popover-foreground: 0 0% 98%;
+    --primary: 264 89% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 6% 14%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 6% 14%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 240 6% 14%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 16%;
+    --input: 240 6% 16%;
+    --ring: 264 89% 70%;
+
+    --tag-school: 217 91% 70%;
+    --tag-part: 38 92% 65%;
+    --tag-hobby: 280 75% 72%;
+    --tag-friend: 340 80% 72%;
+    --tag-meal: 142 55% 60%;
+    --tag-custom: 200 65% 65%;
+    --tag-rose: 350 75% 70%;
+    --tag-red: 0 75% 65%;
+    --tag-coral: 14 80% 67%;
+    --tag-orange: 25 88% 65%;
+    --tag-amber: 45 88% 62%;
+    --tag-lime: 95 60% 60%;
+    --tag-emerald: 155 55% 58%;
+    --tag-teal: 178 55% 55%;
+    --tag-cyan: 188 70% 60%;
+    --tag-sky: 205 80% 65%;
+    --tag-indigo: 240 70% 70%;
+    --tag-violet: 265 72% 70%;
+    --tag-fuchsia: 305 72% 70%;
+    --tag-magenta: 330 72% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+  /* Prevent iOS zoom on focus */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
