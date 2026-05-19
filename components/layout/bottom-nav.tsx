@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS } from "@/lib/nav-items";
+import { TAB_ITEMS } from "@/lib/nav-items";
 
 export function BottomNav() {
   const pathname = usePathname();
@@ -15,7 +15,7 @@ export function BottomNav() {
       )}
     >
       <ul className="mx-auto flex max-w-md items-stretch justify-around">
-        {NAV_ITEMS.map((item) => {
+        {TAB_ITEMS.map((item) => {
           const active =
             pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;

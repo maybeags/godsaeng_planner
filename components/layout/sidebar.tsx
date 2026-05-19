@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS } from "@/lib/nav-items";
+import { SIDEBAR_ITEMS } from "@/lib/nav-items";
 import { Sparkles } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -20,7 +20,7 @@ export function Sidebar() {
       </div>
 
       <nav className="flex-1 space-y-1 p-3">
-        {NAV_ITEMS.map((item) => {
+        {SIDEBAR_ITEMS.map((item) => {
           const active =
             pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;

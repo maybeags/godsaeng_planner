@@ -1,14 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, Sparkles } from "lucide-react";
+import { LogOut, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NAV_ITEMS } from "@/lib/nav-items";
+import { ALL_NAV_ITEMS } from "@/lib/nav-items";
 
 export function AppHeader() {
   const pathname = usePathname();
   const current =
-    NAV_ITEMS.find(
+    ALL_NAV_ITEMS.find(
       (i) => pathname === i.href || pathname.startsWith(i.href + "/")
     )?.label ?? "갓생 플래너";
 
@@ -22,19 +23,31 @@ export function AppHeader() {
         <span className="text-sm font-semibold">{current}</span>
       </div>
 
-      {/* 우측 상단 로그아웃 — 폼 POST 로 서버사이드 정리 */}
-      <form action="/auth/signout" method="post">
-        <Button
-          type="submit"
-          variant="ghost"
-          size="icon"
-          aria-label="로그아웃"
-          title="로그아웃"
-          className="text-muted-foreground hover:text-foreground"
+      <div className="flex items-center gap-1">
+        {/* 모바일에서만: 프로필 진입로 (탭바에서 빠졌으니 헤더로) */}
+        <Link
+          href="/profile"
+          aria-label="프로필"
+          title="프로필"
+          className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground md:hidden"
         >
-          <LogOut className="size-4" />
-        </Button>
-      </form>
+          <User className="size-4" />
+        </Link>
+
+        {/* 우측 상단 로그아웃 — 폼 POST 로 서버사이드 정리 */}
+        <form action="/auth/signout" method="post">
+          <Button
+            type="submit"
+            variant="ghost"
+            size="icon"
+            aria-label="로그아웃"
+            title="로그아웃"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <LogOut className="size-4" />
+          </Button>
+        </form>
+      </div>
     </header>
   );
 }

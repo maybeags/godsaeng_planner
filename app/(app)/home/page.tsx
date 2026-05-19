@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getHomeQuickStats } from "@/lib/stats";
+import { getCurrentProfile, resolveNickname } from "@/lib/profile";
 import { TagPill } from "../planner/_components/tag-pill";
 
 export const dynamic = "force-dynamic";
@@ -20,13 +21,15 @@ export default async function HomePage() {
     {
       data: { user },
     },
+    profile,
     stats,
-  ] = await Promise.all([supabase.auth.getUser(), getHomeQuickStats()]);
+  ] = await Promise.all([
+    supabase.auth.getUser(),
+    getCurrentProfile(),
+    getHomeQuickStats(),
+  ]);
 
-  const nickname =
-    (user?.user_metadata?.name as string | undefined) ??
-    (user?.user_metadata?.preferred_username as string | undefined) ??
-    "갓생러";
+  const nickname = resolveNickname(profile, user);
 
   return (
     <div className="space-y-6">

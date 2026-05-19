@@ -1,9 +1,11 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { todayIsoDate } from "@/lib/date";
+import type { ComposeItem } from "@/lib/posts";
 import { DateNav } from "./_components/date-nav";
 import { PlanInput } from "./_components/plan-input";
 import { PlanList } from "./_components/plan-list";
-import type { PlanWithTags, Tag } from "@/lib/supabase/types";
+import { PostComposer } from "../feed/_components/post-composer";
+import type { PlanWithTags, Tag, TagColor } from "@/lib/supabase/types";
 
 export const dynamic = "force-dynamic";
 
@@ -68,6 +70,23 @@ export default async function PlannerPage({
   }));
 
   const headerTitle = formatHeaderTitle(selectedDate);
+  const isToday = selectedDate === todayIsoDate();
+
+  // PostComposer 는 오늘에만 노출 — KST RLS check 와 일치
+  const composeItems: ComposeItem[] = isToday
+    ? plans.map((p) => ({
+        planId: p.id,
+        item: {
+          content: p.content,
+          plan_time: p.plan_time,
+          is_done: p.is_done,
+          tags: p.tags.map((t) => ({
+            name: t.name,
+            color: t.color as TagColor,
+          })),
+        },
+      }))
+    : [];
 
   return (
     <div className="space-y-6">
@@ -81,6 +100,10 @@ export default async function PlannerPage({
       <PlanInput tags={tags} selectedDate={selectedDate} />
 
       <PlanList plans={plans} tags={tags} />
+
+      {isToday && (
+        <PostComposer initialItems={composeItems} mode="planner" />
+      )}
     </div>
   );
 }

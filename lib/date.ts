@@ -28,6 +28,23 @@ export function todayIsoDate(): string {
   return toIsoDate(kstNow());
 }
 
+/** "방금 전" / "N분 전" / "N시간 전" / "N일 전" / "M/D" */
+export function formatRelativeTime(iso: string, now: Date = new Date()): string {
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return "";
+  const diff = Math.max(0, now.getTime() - t);
+  const sec = Math.floor(diff / 1000);
+  if (sec < 30) return "방금 전";
+  const min = Math.floor(sec / 60);
+  if (min < 60) return `${min}분 전`;
+  const hr = Math.floor(min / 60);
+  if (hr < 24) return `${hr}시간 전`;
+  const day = Math.floor(hr / 24);
+  if (day < 7) return `${day}일 전`;
+  const kst = new Date(t + 9 * 60 * 60 * 1000);
+  return `${kst.getUTCMonth() + 1}/${kst.getUTCDate()}`;
+}
+
 export type MonthGridCell = {
   iso: string;
   d: number;
